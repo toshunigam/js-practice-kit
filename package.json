@@ -1,0 +1,23 @@
+{
+  "name": "js-lodash",
+  "version": "1.0.0",
+  "description": "lodash utility and practice\r https://lodash.com/docs",
+  "main": "src/array/array-example.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toshunigam/js-lodash.git"
+  },
+  "keywords": [],
+  "author": "toshunigam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/toshunigam/js-lodash/issues"
+  },
+  "homepage": "https://github.com/toshunigam/js-lodash#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
