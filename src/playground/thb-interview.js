@@ -40,10 +40,10 @@ let lunchslot = ['09:30-10:00', '10:30-11:00', '13:00-13:30', '15:30-16:00'];
 	
 const allSlot = []
 for(let i=0;i<allSlots.length;i++){
-    var match = true
+    var match = false
     for(let j=0;j<lunchslot.length;j++){
-        if(allSlots[i]!==lunchslot[j]){
-            match=false
+        if(allSlots[i]===lunchslot[j]){
+            match=true
         }
     }
     if(!match){
