@@ -1,4 +1,4 @@
-let arr = [4,3,1,3,5]
+let arr = [4,3,1,3,5,7]
 var output = []
 
 for(let i=0; i<arr.length;i++){
@@ -10,10 +10,12 @@ for(let i=0; i<arr.length;i++){
         }
     }
 }
+
 let missing = []
 for(let i=0;i<arr.length;i++){
     if(arr[i]!==i+1){
         missing.push(i+1)
     }
 }
+console.log(arr)
 console.log(missing)
