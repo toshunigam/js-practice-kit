@@ -51,16 +51,19 @@ function patternC(n){
 //     * * * 
 //   * * * * 
 // * * * * * 
-    for(let i=0; i<n;i++){
-        let identity = '1'
-        for(let j=n;j>i;j--){
-            identity += '*'
+    for(let i=1; i<=n;i++){
+        let identity = ''
+        for(let j=0;j<n;j++){
+            if(j<n-i){
+                identity += ' '
+            }else{
+                identity += '*'
+            }
         }
         console.log(identity)
-    
     }
 }
-// patternC(4)
+patternC(4)
 
 function patternD(n){
     var c = n
@@ -107,4 +110,4 @@ function patternE(n){
         console.log(identity)
     }
 }
-patternE(5)
+// patternE(5)
