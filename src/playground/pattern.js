@@ -63,7 +63,7 @@ function patternC(n){
         console.log(identity)
     }
 }
-patternC(4)
+// patternC(4)
 
 function patternD(n){
     var c = n
@@ -99,7 +99,7 @@ function patternD_1(n){
 function patternE(n){
     for(let i=0; i< 2*n; i++){
         let totalCol = i>n ? 2*n-i:i
-        let identity = ''
+        let identity = ' '
         let noOfSpaces = n-totalCol
         for(let s=0; s<noOfSpaces;s++){
             identity = ' '
@@ -111,3 +111,33 @@ function patternE(n){
     }
 }
 // patternE(5)
+
+function patternF(n){
+//      *
+//     * *
+//    * * *
+//   * * * *
+//  * * * * *
+//   * * * *
+//    * * *
+//     * *
+//      *
+
+    for(let i=0; i<2*n;i++){
+        let totalCol = i > n ? 2*n-i:i
+        let identity = ''
+        let noOfSpaces = i>n ? i-n:n-i
+        // console.log("s",noOfSpaces," i",i)
+        for(let s=0; s < noOfSpaces; s++){
+            // console.log(s)
+            identity += ' '
+        }
+        for(let j=0;j<totalCol;j++){
+            // console.log("j",j)
+            identity += ' *'
+        }
+        console.log(identity)
+    }
+}
+
+patternF(5)
