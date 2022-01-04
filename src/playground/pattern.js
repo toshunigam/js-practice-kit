@@ -126,14 +126,12 @@ function patternF(n){
     for(let i=0; i<2*n;i++){
         let totalCol = i > n ? 2*n-i:i
         let identity = ''
-        let noOfSpaces = i>n ? i-n:n-i
-        // console.log("s",noOfSpaces," i",i)
+        // let noOfSpaces = i>n ? i-n:n-i
+        let noOfSpaces = n-totalCol
         for(let s=0; s < noOfSpaces; s++){
-            // console.log(s)
             identity += ' '
         }
         for(let j=0;j<totalCol;j++){
-            // console.log("j",j)
             identity += ' *'
         }
         console.log(identity)
