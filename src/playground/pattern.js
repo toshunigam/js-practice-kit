@@ -138,4 +138,30 @@ function patternF(n){
     }
 }
 
-patternF(5)
+// patternF(5)
+
+function patternG(n){
+    //      1
+    //     212
+    //    32123
+    //   4321234
+    //  543212345
+    for(let i=1; i<=n; i++){
+        let identity = ''
+
+        for(let space=0;space<=n-i;space++){
+            identity += ' '
+        }
+        for(let col=i; col>=1;col--){
+            identity += col
+        }
+
+        for(let col=2; col<=i;col++){
+            identity += col
+        }
+
+        console.log(identity)
+    }
+}
+
+patternG(5)
