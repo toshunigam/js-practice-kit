@@ -164,4 +164,25 @@ function patternG(n){
     }
 }
 
-patternG(5)
+// patternG(5)
+
+function patternH(n){
+    for(let row=0;row<=2*n;row++){
+        let identity = ''
+        for(let space=0;space<n-row;space++){
+            identity +=' '
+        }
+
+        for(let col=row;col>n-row;col--){
+            if(col===row || col===n){
+                identity += '*'
+            }else{
+                identity += ' '
+            }
+        }
+
+        console.log(identity)
+    }
+}
+
+patternH(5)
