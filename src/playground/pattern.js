@@ -167,17 +167,24 @@ function patternG(n){
 // patternG(5)
 
 function patternH(n){
-    for(let row=0;row<=2*n;row++){
+//    *
+//   * *
+//  *   *
+//   * *
+//    *
+    for(let row=0;row<2*n+1;row++){
         let identity = ''
-        for(let space=0;space<n-row;space++){
-            identity +=' '
+        let spaceLoop = n>row?n-row:row-n
+        for(let space=0;space<spaceLoop;space++){
+            identity +='|'
         }
-
-        for(let col=row;col>n-row;col--){
-            if(col===row || col===n){
+        let colLoop = row<=n ? 2*row+1:spaceLoop
+        // console.log("R",row,"S",spaceLoop,'COLOOP',colLoop)
+        for(let col=row;col<colLoop;col++){
+            if(col===row || col===n-spaceLoop){
                 identity += '*'
             }else{
-                identity += ' '
+                identity += '@'
             }
         }
 
@@ -185,4 +192,4 @@ function patternH(n){
     }
 }
 
-patternH(5)
+patternH(2)
