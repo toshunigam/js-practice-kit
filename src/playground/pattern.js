@@ -180,8 +180,8 @@ function patternH(n){
         }
         let colLoop = row<=n ? 2*row+1:spaceLoop
         // console.log("R",row,"S",spaceLoop,'COLOOP',colLoop)
-        for(let col=row;col<colLoop;col++){
-            if(col===row || col===n-spaceLoop){
+        for(let col=row;col< 2*row+1;col++){
+            if(col==row || col==2*row){
                 identity += '*'
             }else{
                 identity += '@'
