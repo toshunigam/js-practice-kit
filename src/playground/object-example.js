@@ -20,6 +20,11 @@ Object.assign(user, permissions1, permissions2);
 console.log(user)
 
 const jsonObj = {'a':1,'b':2,'c':3,'d':4,'e':5}
+let reverse = {}
+let tmp = {}
 for(const [key,value] of Object.entries(jsonObj)){
-    console.log(`${key} : ${value}`)
+    // console.log(`${key} : ${value}`)
+    tmp[value] = key
+    Object.assign(reverse,tmp)
 }
+console.log(reverse)
