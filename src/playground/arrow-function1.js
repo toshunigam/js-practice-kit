@@ -1,9 +1,9 @@
 let exm = {
     "name":"toshu",
-    "age": sayAge = () =>{
-        return "your age is 35"
+    "age": (age) => {
+        return `your age is ${age}`
     },
     "email":"toshu44heman@gmail.com"
 }
 console.log(exm.name)
-console.log(exm.age())
+console.log(exm.age(12))
