@@ -159,3 +159,18 @@ for(var attributes in slots){
     formetedData.push(format)
 }
 console.log(formetedData)
+
+// can not change the scrting like below because it is immutable (can not be chenge)
+let str = "TOSHU"
+console.log(str[1])
+str[0]="F"
+console.log(str, str[0])
+
+let p=''
+function thenga(){
+  let p = q = 0
+  p++
+  return
+}
+thenga()
+console.log(p,'-- ',q)
