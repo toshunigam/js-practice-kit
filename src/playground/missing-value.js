@@ -21,12 +21,15 @@ for(let i=0;i<arr.length;i++){
 let multipleVal = []
 for(let t=0;t<arr.length;t++){
     let count=0
+    let duplicate = ''
     for(let i=0;i<arr.length;i++){
         if(arr[t]===arr[i]){
             count++
+            duplicate=arr[i]
         }
     }
-    if(count>1){
+    multipleVal.find(res=> res===duplicate)
+    if(count>1 && !multipleVal.find(res=> res===duplicate)){
         multipleVal.push(arr[t])
     }
 }
