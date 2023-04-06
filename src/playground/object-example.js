@@ -28,3 +28,22 @@ for(const [key,value] of Object.entries(jsonObj)){
     Object.assign(reverse,tmp)
 }
 console.log(reverse)
+
+let objectNested = {
+    'hi there':{
+        "how":"HOW",
+        "are":"ARE",
+        "you":"YOU"
+    },
+    'hello there':{
+        'i':"I",
+        "am":"AM",
+        'fine':"FINE"
+    }
+}
+for(let item in objectNested){
+    console.log(item)
+    for(let data in objectNested[item]){
+        console.log(data)
+    }
+}
