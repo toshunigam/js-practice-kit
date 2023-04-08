@@ -44,6 +44,7 @@ let objectNested = {
 for(let item in objectNested){
     console.log(item)
     for(let data in objectNested[item]){
-        console.log(data)
+        // console.log(data)
+        console.log(data+' :: '+objectNested[item][data])
     }
 }
