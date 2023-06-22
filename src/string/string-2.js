@@ -1,3 +1,4 @@
+// Recursive function example. A function call it self is called recursive function
 var arr = []
 function funn(str){
 	if(str.length<=0 || str===null)
