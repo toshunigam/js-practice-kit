@@ -22,8 +22,8 @@ const DB = {
         });
     }
 }
-var query = "select * from users";
-// var query = "insert into users(userid,email,firstname,lastname,age,status,phone,created) values('4','bambahadur@email.com','Bam','Bahadur','35','1','7898778774',now())";
+// var query = "select * from users";
+var query = "insert into users(email,firstname,lastname,age,status,phone,created) values('hunney@email.com','hunney','Bahadur','3','1','9998778777',now())";
 DB.query(query,(err,result)=>{
     if(err){
         console.log(err)
