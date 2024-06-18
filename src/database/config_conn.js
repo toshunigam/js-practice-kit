@@ -3,64 +3,94 @@ const { Pool } = pg
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'mydatabase',
-    password: 'mypassword',
+    database: 'postgres',
+    password: 'toshu',
     port: 5432
 })
-const express = require('express')
-const app = express()
-const port = 3000
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.get('/api/v1/users', async (req, res) => {
-    try {
-        const result = await pool.query('SELECT * FROM users')
-        res.json(result.rows)
+const CRUD = {
+    Read: async (req = "") => {
+        try {
+            const result = await pool.query('SELECT * FROM users');
+            // console.log('res',result.rows)
+            return result.rows
         } catch (err) {
             console.error(err)
-            res.status(500).json({ message: 'Internal Server Error' })
-        }   
-})
-app.post('/api/v1/users', async (req, res) => {
-    try {
-        const { firstname, email, lastname,age, phone, statue } = req.body
-        const result = await pool.query(`INSERT INTO users (email, firstname, lastname, age, phone, statue, created) VALUES ($1,
+            return err;
+        }
+    },
+    Create: async (req) => {
+        try {
+            const { firstname, email, lastname, age, phone, statue } = req.body
+            const result = await pool.query(`INSERT INTO users (email, firstname, lastname, age, phone, statue, created) VALUES ($1,
             $2, $3, $4, $5, $6, $7) RETURNING *`, [email, firstname, lastname, age, phone, statue, now()])
-            res.json(result.rows[0])
-            } catch (err) {
-                console.error(err)
-                res.status(500).json({ message: 'Internal Server Error' })
+            return result.rows[0];
+        } catch (err) {
+            console.error(err)
+            return err;
+        }
+    },
+    Edit: async (req) => {
+        try {
+            const id = req.params.id
+            const result = await pool.query(`SELECT * FROM users WHERE id = $1`, [id])
+            if (result.rows.length === 0) {
+                return 'No user found'
+            } else {
+                return result.rows[0];
             }
-        })
-app.get('/api/v1/users/:id', async (req, res) => {
-    try {
-        const id = req.params.id
-        const result = await pool.query(`SELECT * FROM users WHERE id = $1`, [id
+        } catch (err) {
+            console.error(err)
+            return err;
+        }
+    },
+    Update: async (req) => {
+        try {
+            const id = req.params.id
+            const { name, phone } = req.body
+            const result = await pool.query(`UPDATE users SET firstname=$1, phone=$2 WHERE id = $3`, [name, phone, id
             ])
             if (result.rows.length === 0) {
-                res.status(404).json({ message: 'User not found' })
-                } else {
-                    res.json(result.rows[0])
-                }
-                } catch (err) {
-                    console.error(err)
-                    res.status(500).json({ message: 'Internal Server Error' })
-                }
-})
-app.put('/api/v1/users/:id', async (req, res) => {
-    try {
-        const id = req.params.id
-        const { name, phone } = req.body
-        const result = await pool.query(`UPDATE users SET firstname=$1, phone=$2 WHERE id = $3`, [name, phone, id
-        ])
-        if (result.rows.length === 0) {
-            res.status(404).json({ message: 'User not found' })
+                return 'user not found'
             } else {
-                res.json(result.rows[0])
+                return result.rows[0];
             }
-            } catch (err) {
-                console.error(err)
-                res.status(500).json({ message: 'Internal Server Error' })
-            }
-})
+        } catch (err) {
+            console.error(err)
+            return err;
+        }
+    }
 
+}
+//Insert records
+const insert = {
+    body: {
+        "firstname": "John",
+        "email": "john@example.com",
+        "lastname": "Doe",
+        "age": 30,
+        "phone": "1234567890",
+        "statue": "1"
+    }
+}
+//edit records
+const edit = {
+    params: {
+        "id": 1
+    }
+}
+//update records
+const update = {
+    params: {
+        "id": 1
+    },
+    body: {
+        "firstname": "Jane",
+        "phone": "9876543210"
+    }
+}
+//get the user list
+let users = CRUD.Read();
+
+users.then(res=>{
+    console.log('RESS :',res)
+});
