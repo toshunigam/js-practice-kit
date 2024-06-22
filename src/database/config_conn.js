@@ -21,8 +21,8 @@ const CRUD = {
     Create: async (req) => {
         try {
             const { firstname, email, lastname, age, phone, statue } = req.body
-            const result = await pool.query(`INSERT INTO users (email, firstname, lastname, age, phone, statue, created) VALUES ($1,
-            $2, $3, $4, $5, $6, $7) RETURNING *`, [email, firstname, lastname, age, phone, statue, now()])
+            const result = await pool.query(`INSERT INTO users (email, firstname, lastname, age, phone, status, created) VALUES ($1,
+            $2, $3, $4, $5, $6, $7) RETURNING *`, [email, firstname, lastname, age, phone, statue, 'now()'])
             return result.rows[0];
         } catch (err) {
             console.error(err)
@@ -32,7 +32,7 @@ const CRUD = {
     Edit: async (req) => {
         try {
             const id = req.params.id
-            const result = await pool.query(`SELECT * FROM users WHERE id = $1`, [id])
+            const result = await pool.query(`SELECT * FROM users WHERE userid = $1`, [id])
             if (result.rows.length === 0) {
                 return 'No user found'
             } else {
@@ -47,13 +47,9 @@ const CRUD = {
         try {
             const id = req.params.id
             const { name, phone } = req.body
-            const result = await pool.query(`UPDATE users SET firstname=$1, phone=$2 WHERE id = $3`, [name, phone, id
+            const result = await pool.query(`UPDATE users SET firstname=$1, phone=$2 WHERE userid = $3`, [name, phone, id
             ])
-            if (result.rows.length === 0) {
-                return 'user not found'
-            } else {
-                return result.rows[0];
-            }
+            return result;
         } catch (err) {
             console.error(err)
             return err;
@@ -75,22 +71,39 @@ const insert = {
 //edit records
 const edit = {
     params: {
-        "id": 1
+        "id": 9
     }
 }
 //update records
 const update = {
     params: {
-        "id": 1
+        "id": 9
     },
     body: {
-        "firstname": "Jane",
+        "name": "Jane",
         "phone": "9876543210"
     }
 }
+//edit the user
+let EditUser = CRUD.Edit(edit);
+EditUser.then(res=>{
+    console.log('Edit ',res);
+})
+
+//insert user
+/* let InsertUser = CRUD.Create(insert);
+InsertUser.then(res=>{
+    console.log('Insert ',res);
+}); */
+
+//update user
+let updateUser = CRUD.Update(update);
+updateUser.then(res=>{
+    console.log('update ',res)
+})
 //get the user list
 let users = CRUD.Read();
 
 users.then(res=>{
-    console.log('RESS :',res)
+    // console.log('RESS :',res)
 });
