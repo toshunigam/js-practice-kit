@@ -54,6 +54,20 @@ const CRUD = {
             console.error(err)
             return err;
         }
+    },
+    Delete: async (req) => {
+        try {
+            const id = req.params.id
+            const result = await pool.query(`DELETE FROM users WHERE userid = $1`, [id])
+            if (result.rows.length === 0) {
+                return 'No user found'
+            } else {
+                return result.rows[0];
+            }
+        } catch (err) {
+            console.error(err)
+            return err;
+        }
     }
 
 }
@@ -84,6 +98,12 @@ const update = {
         "phone": "9876543210"
     }
 }
+//delete user
+const Delete = {
+    params: {
+        "id": -1
+    }
+}
 //edit the user
 let EditUser = CRUD.Edit(edit);
 EditUser.then(res=>{
@@ -97,13 +117,20 @@ InsertUser.then(res=>{
 }); */
 
 //update user
-let updateUser = CRUD.Update(update);
+/* let updateUser = CRUD.Update(update);
 updateUser.then(res=>{
     console.log('update ',res)
+}); */
+
+//delete user
+let deleteUser = CRUD.Delete(Delete);
+deleteUser.then(res=>{
+    console.log(res);
 })
+
 //get the user list
 let users = CRUD.Read();
 
 users.then(res=>{
-    // console.log('RESS :',res)
+    console.log('RESS :',res)
 });
