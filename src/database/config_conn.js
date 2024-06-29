@@ -68,6 +68,19 @@ const CRUD = {
             console.error(err)
             return err;
         }
+    },
+    callProcedure: async (req) => {
+        try {
+            const result = await pool.query(`CALL updateuser($1,$2,$3)`, ['TOSHU',37,5])
+            if (result) {
+                return result
+            } else {
+                return 'something wrong!';
+            }
+        } catch (err) {
+            console.error(err)
+            return err;
+        }
     }
 
 }
@@ -134,3 +147,8 @@ let users = CRUD.Read();
 users.then(res=>{
     console.log('RESS :',res)
 });
+
+let pros_user = CRUD.callProcedure('');
+pros_user.then(res=>{
+    console.log('Procedure res :',res)
+})
