@@ -6,12 +6,21 @@ const pool = new Pool({
     database: 'postgres',
     password: 'toshu',
     port: 5432
-})
+});
+
+pool.on('error', (err, client) => {
+    console.error('Unexpected error on idle client', err)
+    process.exit(-1)
+  })
+   
+
 const CRUD = {
     Read: async (req = "") => {
         try {
-            const result = await pool.query('SELECT * FROM users');
+            const client = await pool.connect();
+            const result = await client.query('SELECT * FROM users');
             // console.log('res',result.rows)
+            client.release();
             return result.rows
         } catch (err) {
             console.error(err)
@@ -118,10 +127,10 @@ const Delete = {
     }
 }
 //edit the user
-let EditUser = CRUD.Edit(edit);
+/* let EditUser = CRUD.Edit(edit);
 EditUser.then(res=>{
     console.log('Edit ',res);
-})
+}) */
 
 //insert user
 /* let InsertUser = CRUD.Create(insert);
@@ -136,19 +145,19 @@ updateUser.then(res=>{
 }); */
 
 //delete user
-let deleteUser = CRUD.Delete(Delete);
+/* let deleteUser = CRUD.Delete(Delete);
 deleteUser.then(res=>{
     console.log(res);
-})
+}) */
 
 //get the user list
 let users = CRUD.Read();
-
 users.then(res=>{
     console.log('RESS :',res)
 });
 
-let pros_user = CRUD.callProcedure('');
+//calling stored procedure
+/* let pros_user = CRUD.callProcedure('');
 pros_user.then(res=>{
     console.log('Procedure res :',res)
-})
+}) */
