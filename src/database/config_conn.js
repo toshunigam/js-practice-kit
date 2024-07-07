@@ -80,9 +80,10 @@ const CRUD = {
     },
     callProcedure: async (req) => {
         try {
-            const result = await pool.query(`CALL updateuser($1,$2,$3)`, ['TOSHU',37,5])
-            if (result) {
-                return result
+            const result = await pool.query(`CALL updateuser($1,$2,$3)`, ['Abhishek',37,3]);
+            // console.log('RESULT :',result);
+            if (result.rows.length == 0) {
+                return 'record updated!'
             } else {
                 return 'something wrong!';
             }
@@ -152,12 +153,12 @@ deleteUser.then(res=>{
 
 //get the user list
 let users = CRUD.Read();
-users.then(res=>{
+/* users.then(res=>{
     console.log('RESS :',res)
-});
+}); */
 
 //calling stored procedure
-/* let pros_user = CRUD.callProcedure('');
+let pros_user = CRUD.callProcedure('');
 pros_user.then(res=>{
     console.log('Procedure res :',res)
-}) */
+})
