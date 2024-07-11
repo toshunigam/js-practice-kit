@@ -91,7 +91,17 @@ const CRUD = {
             console.error(err)
             return err;
         }
+    },
+    UserDetail: async () => {
+        try {
+            const result = await pool.query(`select u.firstname, u.phone, u.age, a.line1 from users u join address a on u.userid=a.userid;`, [])
+            return result.rows;
+        } catch (err) {
+            console.error(err)
+            return err;
+        }
     }
+
 
 }
 //Insert records
@@ -158,7 +168,13 @@ let users = CRUD.Read();
 }); */
 
 //calling stored procedure
-let pros_user = CRUD.callProcedure('');
+/* let pros_user = CRUD.callProcedure('');
 pros_user.then(res=>{
     console.log('Procedure res :',res)
+}) */
+
+// calling user details 
+let details = CRUD.UserDetail();
+details.then(res=>{
+    console.log("User Details", res)
 })
