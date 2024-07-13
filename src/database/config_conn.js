@@ -94,7 +94,19 @@ const CRUD = {
     },
     UserDetail: async () => {
         try {
-            const result = await pool.query(`select u.firstname, u.phone, u.age, a.line1 from users u join address a on u.userid=a.userid;`, [])
+            const result = await pool.query(`
+                SELECT
+                    userid,
+                    email, 
+                    firstname,
+                    phone,
+                    COALESCE((
+                    SELECT json_agg(json_build_object('line1', line1, 'line2', line2, 'pincode',pincode, 'city', city))
+                    FROM address where address.userid=users.userid
+                    ), '[]'::json) vals 
+                FROM 
+                    users;`,
+            [])
             return result.rows;
         } catch (err) {
             console.error(err)
@@ -176,5 +188,5 @@ pros_user.then(res=>{
 // calling user details 
 let details = CRUD.UserDetail();
 details.then(res=>{
-    console.log("User Details", res)
+    console.log("User Details", JSON.stringify(res))
 })
